@@ -24,7 +24,7 @@ jobs:
         with:
           version: '1'
       - run: |
-          pwd && ls &&
+          julia --project -e 'import Pkg; Pkg.instantiate)'
           julia --project src/Intro.jl
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
