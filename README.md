@@ -2,8 +2,6 @@
 
 This is a simple Documenter.jl website to teach the fundamentals of Julia: https://www.leioslabs.com/Julia101.jl
 
-## License
-
 ## License information
 
 All code is under an MIT license, specified in [LICENSE](LICENSE).
