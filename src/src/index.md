@@ -31,7 +31,7 @@ But surely there's a catch, right?
 Yeah.
 There certainly is.
 
-With all of it's complexity, Julia (at the time of writing, 2023) cannot reliably generate an executable, which means you need to wait for some (sometimes lengthy) pre-compile times every time you want to run code.
+With all of it's complexity, Julia (at the time of writing, 2023) cannot reliably generate an executable [^Note that it is possible to compile everything ahead-of-time with PkgCompiler.jl, but this leads to very large executable sizes which are not ideal for most applications], which means you need to wait for some (sometimes lengthy) pre-compile times every time you want to run code.
 Also, as much as Julia wants to compete in the same space as languages like Python, it does not *quite* have the same user-base and is currently not used in many key areas, like game and web development.
 Julia does a good enough job replacing data science languages like matlab, but the truth is that people using matlab do not usually want to switch languages.
 
