@@ -4,8 +4,16 @@ This is a simple Documenter.jl website to teach the fundamentals of Julia: https
 
 ## License
 
-The code examples for this project are licensed under the MIT license (found in [LICENSE](https://github.com/leios/Intro.jl/blob/main/LICENSE)).
-All text and graphical content is licensed under the [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/legalcode) with attribution to James Schloss
+## License information
 
-[<p><img  class="center" src="src/src/res/CC-BY-SA_icon.svg" /></p>](https://creativecommons.org/licenses/by-sa/4.0/)
+All code is under an MIT license, specified in [LICENSE](LICENSE).
+The text and graphical content is under the [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)](https://creativecommons.org/licenses/by-nc-sa/4.0/) license with attribution to James Schloss (Leios).
+This basically means you can use the text for any non-commercial purpose, as long as you attribute me and the future work is also non-commercial and creative commons.
+I want my writing to be available for free online, but I don't want anyone to profit off of it without my explicit permission.
+
+<p>
+<a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" >
+<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/nc.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/sa.svg?ref=chooser-v1">
+</a>
+</p>
 
