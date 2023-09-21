@@ -6,10 +6,11 @@ makedocs(
     authors="James Schloss (Leios) and contributors",
     pages = [
         "General Information" => "index.md",
+        "About" => "about.md",
         "Performance Notes" => "performance.md",
         "Development Environments" => "ides.md",
-        "General Syntax" => "syntax.md",
         "Packages" => "packages.md",
+        "General Syntax" => "syntax.md",
         "Plotting" => "plotting.md",
         "Parallelization" => "parallel.md",
         "Benchmarking" => "benchmarks.md",
