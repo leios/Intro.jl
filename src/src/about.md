@@ -1,17 +1,7 @@
 # About this Book
 
 The Intro.jl project is intended first and foremost as a book for people to thumb through and better understand the basics of Julia; however, it is also purposefully available for free online for anyone who wants or needs it.
-I will also be using this as my go-to reference for any course I teach about Julia moving forward.
-
-All of the writing here will assume basic familiarity with some other programming language.
-In particular, I will assume basic knowledge of loops, conditionals, functions, structs, etc.
-I will explain how such features work syntactically in Julia, but I will not dive deeper into explaining how they work for those who are unfamiliar.
-
-It is really important to read this book at your own pace.
-I tried my best to collect all of my thoughts and write everything in the order that made the most sense to me, but we are different people.
-If you are struggling or lack motivation to get through particular sections, take a breather or move on to another section.
-In fact, some sections might not even be necessary for your workflow, and that's ok!
-You don't have to read everything here!
+It will also be used as a go-to reference for any course I teach about Julia moving forward.
 
 The point of this book is to kickstart your journey into the Julia language and serve as a quick and easy reference to look through when you are stumped.
 The hope is that you spend as little time as possible reading so you can spend more time actually doing the fun part: developing code.

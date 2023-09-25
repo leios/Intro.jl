@@ -303,8 +303,100 @@ That isn't a huge deal in most cases, but if you notice things acting funny late
 From now on, any time you load the NewPackage project, you will have `Plots` ready to go with just `using Plots`.
 It will automatically load a version that works well with your project.
 
-Keep in mind that all of these commands can be done by `using Pkg` and calling everything from a separate file instead of from the REPL.
+#### What happened to the `Project.toml` file?
+So at this point, we have taken a look at what happens when we `add` a package to a specific project, but how are these changes actually reflected in the project, itself?
+More specifically, if I were to give a friend this Julia project, how can I be sure that they can install the right packages?
 
+Well, the changes will be reflected in the `Project.toml` file:
+
+```
+cat Project.toml 
+name = "NewPackage"
+uuid = "6c3339cd-44b7-4b24-89b3-44aad60a1695"
+authors = ["James Schloss <jrs.schloss@gmail.com>"]
+version = "0.1.0"
+
+[deps]
+Plots = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"
+
+```
+As you can see, there is now a new section called `[deps]` which lists out all of the "dependencies" (software necessary for the project to run.
+In general, as long as you pass the `Project.toml` file along with the rest of the code, people can install all the necessary packages by doing:
+
+```
+julia --project=.
+] # to enter package mode in the REPL
+(NewPackage) pkg> instantiate
+```
+where `instantiate` is the command used to create a working instance of the project by installing all the necessary software.
+
+#### What about the `Manifest.toml`?
+
+Note: CHECK FOR V1.9!!!
+
+Now let's touch on the other file, the `Manifest.toml`.
+When we used the `add Plots` command, Julia installed not only `Plots`, but also all the other necessary software for `Plots` to run, including several non-Julia blobs known as artifacts.
+From the user's perspective, the only piece of software they care about is `Plots`, but it would be helpful to keep track of all these other bits and bobs.
+That's where the `Manifest.toml` file comes in.
+It's just a list of every package and all of their dependencies.
+
+In short, the `Project.toml` file is a user-generated short-list of necessary packages, while the `Manifest.toml` is a computer generated long-list of everything else.
+We will not inspect this file too deeply because, well:
+
+```
+wc Manifest.toml 
+  913  2409 31541 Manifest.toml
+```
+The file already has 900 lines of code!
+For those who don't know, the `wc` command stands for `wc` and will just show how many lines, words, and characters each file has.
+
+For now, let's just look at where Plots is specified:
+
+```
+[[deps.Plots]]
+deps = ["Base64", "Contour", "Dates", "Downloads", "FFMPEG", "FixedPointNumbers"
+, "GR", "JLFzf", "JSON", "LaTeXStrings", "Latexify", "LinearAlgebra", "Measures"
+, "NaNMath", "Pkg", "PlotThemes", "PlotUtils", "Preferences", "Printf", "REPL", 
+"Random", "RecipesBase", "RecipesPipeline", "Reexport", "RelocatableFolders", "R
+equires", "Scratch", "Showoff", "SnoopPrecompile", "SparseArrays", "Statistics",
+ "StatsBase", "UUIDs", "UnicodeFun", "Unzip"]
+git-tree-sha1 = "513084afca53c9af3491c94224997768b9af37e8"
+repo-rev = "v1.39.0"
+repo-url = "https://github.com/JuliaPlots/Plots.jl.git"
+uuid = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"
+version = "1.39.0"
+```
+
+Here, we see a short-hand version of the `Project.toml` for `Plots`, along with all of it's dependencies.
+The `deps.Plots` notation can be read as "dependencies for `Plots`."
+We can also look into any one of these dependencies in the `Manifest.toml` file to see how it works on your own machine.
+
+It's actually kinda interesting to see what pieces of software `Plots` and Julia pulls in to get everything working on your own system, so I might recommend just looking at the file in depth for fun.
+But to be honest, only for fun.
+
+Otherwise this file is completely computer generated and can probably be ignored.
+In fact, if you are using git, I would suggest adding the `Manifest.toml` to your `.gitignore` file so you don't accidentally commit it.
+
+#### What if I don't want to use the REPL?
+So there are some instances where you don't have the Julia REPL immediately available (we'll definitely talk about these instances later).
+In these cases, you can load the `Pkg` package and use all the same commands as if you were calling a function from that module.
+For example:
+
+```
+using Pkg
+Pkg.status()
+```
+
+Just remember that in this case, the commands will be functions and will take function arguments, so you need to add parentheses (`()`) and treat any function arguments as Julia data structures (probably strings).
+So `add` would look like:
+
+```
+using Pkg
+Pkg.add("Plots")
+```
+
+
+### Wrap-up
 Ok, that was a lot.
 At this stage, we have talked about how to use basic packages and add them to basic projects, but there are lots of little things to talk about.
 Let's tackle them one at a time.
@@ -319,7 +411,6 @@ How would you even figure out such a thing?
 Well, you can do so by looking at your `status` or `st`:
 
 ```
-] # to enter package mode in the REPL
 (NewPackage) pkg> st
      Project NewPackage v0.1.0
       Status `~/projects/stuff/NewPackage.jl/Project.toml`
@@ -338,15 +429,162 @@ Now that we know our package versions we can play around with them.
     By standardizing on semantic versioning, Julia can ensure the package manager can maintain a clear concept of which packages depend on each other and which versions of those packages are necessary to provide correct results.
     So for example, let's say that package A requires package B to be at v1.3.4 or older.
     If you install package A, the package manager will automatically lower the version of package B to 1.3.4 or older.
-    Note that this can cause some complications and we'll talk about how to watch out for these when discussing the `status` of packages later.
 
 ### Lowering the package version
-### using a specific git branch
-"main" and "http"
+
+Following the discussion from above, let's say we want to lower the version of `Plots` for our `NewPackage`.
+This is as simple as:
+
+```
+] # to enter package mode in the REPL
+(NewPackage) pkg> add Plots#v1.38.0
+```
+
+It is exactly the same as the previous `add` command, but with a `#v1.38.0` added to it.
+You can put down any version number you like instead.
+
+But for now, I want to take a look at the output:
+
+```
+     Cloning git-repo `https://github.com/JuliaPlots/Plots.jl.git`
+    Updating registry at `~/.julia/registries/General`
+    Updating git-repo `https://github.com/JuliaRegistries/General.git`
+   Resolving package versions...
+   Installed GR_jll ─────── v0.71.8+0
+   Installed Latexify ───── v0.15.21
+   Installed ColorSchemes ─ v3.24.0
+   Installed GR ─────────── v0.71.8
+  Downloaded artifact: GR
+
+```
+
+All of this is the same as before, but you might notice some of the version numbers are different.
+From here, we see some clear changes:
+
+```
+    Updating `~/projects/stuff/NewPackage.jl/Project.toml`
+  [91a5bcdd] ~ Plots v1.39.0 ⇒ v1.38.0 `https://github.com/JuliaPlots/Plots.jl.git#v1.38.0`
+    Updating `~/projects/stuff/NewPackage.jl/Manifest.toml`
+  [35d6a980] ↑ ColorSchemes v3.23.0 ⇒ v3.24.0
+  [187b0558] - ConstructionBase v1.5.4
+  [28b8d3ca] ↓ GR v0.72.9 ⇒ v0.71.8
+  [23fbe1c1] ↓ Latexify v0.16.1 ⇒ v0.15.21
+  [91a5bcdd] ~ Plots v1.39.0 ⇒ v1.38.0 `https://github.com/JuliaPlots/Plots.jl.git#v1.38.0`
+  [66db9d55] + SnoopPrecompile v1.0.3
+  [2913bbd2] ↓ StatsBase v0.34.0 ⇒ v0.33.21
+  [1986cc42] - Unitful v1.17.0
+  [45397f5d] - UnitfulLatexify v1.6.3
+  [d2c73de3] ↓ GR_jll v0.72.9+1 ⇒ v0.71.8+0
+  [89763e89] ↓ Libtiff_jll v4.5.1+1 ⇒ v4.4.0+0
+  [ea2cea3b] + Qt5Base_jll v5.15.3+2
+  [c0090381] - Qt6Base_jll v6.4.2+3
+  [ffd25f8a] - XZ_jll v5.4.4+0
+```
+
+A bunch of things are happening:
+1. A single package has been upgraded (marked in yellow with a `↑` arrow)
+2. Many packages have been downgraded (marked in purple with `↓` arrows)
+3. Several packages have been removed (marked in red with a `-` sign)
+4. A few packages have been added (marked in green with a `+` sign)
+
+Note two important things:
+1. The only change to the `Project.toml` is the change of `Plots` version number.
+2. All the other changes are indirect and stored in the `Manifest.toml` file instead.
+
+After this, the project precompiles like normal:
+
+```
+Precompiling project...
+  9 dependencies successfully precompiled in 96 seconds (128 already precompiled)
+```
+
+My point here is that downgrading a package is easy syntactically (it's just an `add` command), but there is a lot going on behind the scenes.
+In fact, it's relatively easy to use any development branch of any package.
+Let's show that off next.
+
+### Using a specific git branch
+So let's imagine there is some new feature to the `Plots` package that you really want to use immediately.
+Unfortunately, this feature is only in the primary development branch (usually either `master` or `main`).
+What do you do?
+
+Well, you can just `add` it like so:
+```
+(NewPackage) pkg> add Plots#master
+```
+
+This will do the same procedure as before and update your local files so that they point to the master branch.
+In fact, you could do this same thing for any commit hash or branch, not just `master` or `main`.
+
+But what if your friend made their own version of Plots and really wants to use that instead?
+Ok, no problem, just use the url:
+
+```
+(NewPackage) pkg> add https://github.com/Friend/Plots.jl
+```
+
+Here, you would need to replace the link with whatever link your friend has been using for development.
+If it's on github, you can probably just replace `Friend` with your friend's github ID.
+
+This leads us to the next topic, developing local packages.
+
+### Using packages outside of the Julia Registry
+
+If you have decided to create a project for yourself, you will probably be storing that project in some git repository somewhere.
+Though at some point you might want to put the package in the official Julia registry, there is no real requirement to do so.
+In fact, there are a bunch of packages that exist outside of the official Julia registry for some reason or another.
+to use one of these packages, just do what we did above and add the project with the development url:
+
+```
+(NewPackage) pkg> add URL
+```
+
 ### Developing local packages
 
-## Additional notes on `Project.toml`
-### deps
+Ok, but what if you want to make changes to `Plots`, how would you do that?
+One easy way is to download the repo onto your own machine and do development on your own fork (before creating a pull request with the changes to the official repository).
+
+So let's show off how to do that (starting from the `NewPackage.jl` source / root directory)
+
+```
+cd ../
+git clone git clone 
+```
+
+This will get a version of `Plots.jl` on your local computer.
+Feel free to do whatever you want to it.
+Note that you could also have used the ssh or git link as well (`git@github.com:JuliaPlots/Plots.jl.git`).
+
+Once this is done, we can go back to the `NewPackage.jl` directory and enter the Julia project:
+
+```
+cd NewPackage.jl
+julia --project=.
+```
+
+Now we need to tell Julia that we will be developing `Plots` locally with the `dev` command:
+
+```
+] # to enter package mode in the REPL
+(NewPackage) pkg> dev ../Plots.jl/
+```
+
+Now let's take a look at our `status`
+
+```
+(NewPackage) pkg> st
+     Project NewPackage v0.1.0
+      Status `~/projects/stuff/NewPackage.jl/Project.toml`
+  [91a5bcdd] Plots v1.39.0-dev `../Plots.jl`
+```
+
+`Plots` is now at `v1.39.0-dev` and points to `../Plots.jl`, our local directory.
+Now any change we make there will be reflected in the `NewPackage.jl` project.
+
+## Adding `compat`ability versions for specific packages
+
+At this point, we have a clear idea of how important the `Project.toml` file is for each Julia project (or package); however, until now we have been completely relying on the package manager to make any changes.
+The truth is that there are several reasons why you might want to update the file manually instead.
+
 ### compat
 ## Status conflicts
 
@@ -355,16 +593,9 @@ Limit `Plots` version in one package and then use a second package to show a few
 ## Registering a package
 ### Creating your own Registry
 
-## Testing, building, and interacting with github
+### Manifests
+### build command
+### Instantiation
 
-### Testing
-### Building
-### CI
-### Documentation
-### TagBot
-
-## Manifests
-
-## Revise.jl
-
-Ok, that's everything I can think of about package management in Julia.
+Ok, that's a little too much information on package management for now.
+There is a lot left to cover, including testing, documentation, etc, but that will all be covered in the development section.
