@@ -1,13 +1,13 @@
 # Introduction to Julia
 
-Let's say you are asked to cut down a forest and are given the choice of two tools: either a chainsaw or an axe.
-Clearly, the axe is simpler to use.
-Just pick it up, point the bladed edge towards the tree, and chop.
-The chainsaw, on the other hand, requires a bit more knowledge on how to power it, keep the chains lubricated, and ensure the safety of yourself and everyone around you.
-Even with this added complexity, you would probably choose the chainsaw because it would be way easier to chop down a bunch of trees with it.
+In casual conversation, the word "simple" is often used interchangeably with the phrase "easy to use"; however, when it comes to tools that we use on a daily basis, the two concepts might actually be opposite of each other.
 
-In casual conversation the word "simple" is often used interchangeably with the phrase "easy to use," but the distinction is necessary here.
-The axe is *simpler*, but the chainsaw is *easier to use*.
+For example, let's say you are asked to cut down a forest and are given the choice of two tools: either a chainsaw or an axe [^ For the record, I am not advocating that you *actually* cut down a forest. This discussion is purely hypothetical].
+Clearly, the axe is simpler to use.
+Just pick it up, point the bladed edge towards a tree, and chop.
+The chainsaw, on the other hand, requires a bit more knowledge on how to power it, keep the chains lubricated, and ensure the safety of yourself and everyone around you.
+Even with this added complexity, you would probably choose the chainsaw over the axe because it is simply way easier to chop down a bunch of trees with it.
+In short: the axe is *simpler*, but the chainsaw is *easier to use*.
 
 It's important to make this distinction with software as well.
 Often times, the easiest software to use is also the most complicated under-the-hood.
@@ -22,10 +22,10 @@ It's missing a lot of the features modern-day users want: plotting, dynamic reco
 So why did I bring all this up?
 Because Julia is simultaneously the easiest and most complicated programming language I know.
 
-It has a dynamic shell (Read-Eval-Print-Loop, or REPL), just like Python which allows for fast and dynamic prototyping.
-It gets fantastic performance because all the functions compile down to LLVM, just like C.
+It has a dynamic shell (Read-Eval-Print-Loop, or REPL), just like Python which allows for fast prototyping.
+It gets fantastic performance because all the functions compile down to LLVM, just like in C.
 It has a great package manager, plotting utilities, and garbage collector for memory management.
-It also has the best General-Purpose Graphics Processing Unit ecosystem I have ever seen.
+It also has the best General-Purpose Graphics Processing Unit (GPGPU) ecosystem I have ever seen.
 
 But surely there's a catch, right?
 Yeah.
@@ -47,4 +47,4 @@ Just keep in mind that there is no such thing as a perfect language.
 Like I said before, Julia is a chainsaw.
 Sometimes you might still want an axe and that's totally ok!
 
-Julia does not need to be the *only* language you use going forward, but I hope that (after reading this intro), you'll find a couple of good uses for it that you might noth have otherwise known about.
+Julia does not need to be the *only* language you use going forward, but I hope that (after reading this book), you'll find a couple of good uses for it that you might noth have otherwise known about.
