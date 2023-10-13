@@ -1,4 +1,4 @@
-# Julia101
+# Intro.jl
 
-This is a simple Documenter.jl website to teach the fundamentals of Julia: https://www.leioslabs.com/Julia101.jl
+This is a set of slides and example scripts used for the corvid course.
 
