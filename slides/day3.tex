@@ -1,0 +1,308 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beamer Presentation
+% LaTeX Template
+% Version 1.0 (10/11/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+% Modified by Jeremie Gillet in November 2015 to make an OIST Skill Pill template
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%-------------------------------------------------------------------------------
+%	PACKAGES AND THEMES
+%-------------------------------------------------------------------------------
+
+\documentclass{beamer}
+
+\mode<presentation> {
+
+\usetheme{Madrid}
+
+\definecolor{OISTcolor}{rgb}{0.65,0.16,0.16}
+\usecolortheme[named=OISTcolor]{structure}
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+\setbeamertemplate{itemize items}[triangle]
+\setbeamertemplate{enumerate items}[default]
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{textpos} % Use for positioning the Skill Pill logo
+\usepackage{fancyvrb}
+\usepackage{tikz}
+\usepackage{hyperref}
+\usepackage{listings}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=python,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+%-------------------------------------------------------------------------------
+%	TITLE PAGE
+%-------------------------------------------------------------------------------
+
+\title[Intro.jl]{Introduction to Julia} % The short title appears at the bottom of every slide, the full title is only on the title page
+\subtitle{Session 3: Bits and Bobs}
+
+\author{James Schloss} % Your name
+\institute[LeiosLabs] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
+{
+\textit{jrs.schloss@gmail.com} % Your email address
+}
+\date{October 9, 2023} % Date, can be changed to a custom date
+
+\begin{document}
+
+\begin{frame}
+\vspace*{1.4cm}
+\titlepage % Print the title page as the first slide
+\end{frame}
+
+\setbeamertemplate{background}{} % No background logo after title frame
+
+\begin{frame}
+\frametitle{Last time on Intro.jl}
+\center \Huge{Quick Recap}
+\end{frame}
+
+\begin{frame}
+\frametitle{Performance and Debugging}
+\begin{itemize}
+\item @time
+\item @benchmark
+\item @code\_lowered, @code\_typed
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Ok, let's wrap up!}
+\begin{itemize}
+\item Add all necessary packages to the NewPackage.jl src file
+\item Create the github url and discuss github utilities
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{PackageCompiler}
+\begin{itemize}
+\item Sysimages
+\item Apps
+\item Libraries
+\end{itemize}
+\pause
+\center We'll skip libraries for now...
+\end{frame}
+
+\begin{frame}
+\frametitle{Calling other languages}
+\begin{itemize}
+\item Python
+\item C / Fortran
+\item C++
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python: calling libraries}
+\begin{lstlisting}
+using PyCall
+math = pyimport("math")
+math.sqrt(5)
+\end{lstlisting}
+
+This works for any library:
+
+\begin{lstlisting}
+sudo pacman -S python-numpy
+julia> @pyimport numpy
+julia> arr = numpy.array([[1, 2, 3], [4, 5, 6]], numpy.int32)
+2x3 Matrix{Int32}:
+ 1  2  3
+ 4  5  6
+
+julia> typeof(arr)
+Matrix{Int32} (alias for Array{Int32, 2})
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python: calling local code}
+\begin{lstlisting}
+julia> py"print('Hello World!')"
+Hello World!
+
+julia> py"""
+       import numpy as np
+
+       def sinpi(x):
+           return np.sin(np.pi * x)
+       """
+
+julia> py"sinpi"(1)
+
+julia> PyCall.@pyinclude("hw.py")
+Hello world!
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python: calling local code}
+
+hw.py:
+\begin{lstlisting}
+def check():
+    print("Hello world!")
+\end{lstlisting}
+
+\begin{lstlisting}
+julia> py"check()"
+Hello world!
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{C / Fortran: calling libraries}
+\begin{lstlisting}
+julia> @ccall clock()::Int32
+11750209
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{C / Fortran: calling local code}
+myclib.h:
+
+\begin{lstlisting}
+extern int get2 ();
+extern double sumMyArgs (float i, float j);
+\end{lstlisting}
+
+myclib.c:
+
+\begin{lstlisting}
+int get2 (){
+ return 2;
+}
+double sumMyArgs (float i, float j){
+ return i+j;
+}
+\end{lstlisting}
+Note that we need to define the function we want to use in Julia as extern in the C header file.
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{C / Fortran: calling local code}
+
+We can then compile the shared library with gcc, a C compiler:
+
+\begin{lstlisting}
+gcc -o myclib.o -c myclib.c
+gcc -shared -o libmyclib.so myclib.o -lm -fPIC
+\end{lstlisting}
+We are now ready to use the C library in Julia:
+
+\begin{lstlisting}
+const myclib = joinpath(@__DIR__, "libmyclib.so")
+a = ccall((:get2,myclib), Int32, ())
+b = ccall((:sumMyArgs,myclib), Float64, (Float32,Float32), 2.5, 1.5)
+\end{lstlisting}
+
+Remember that you can wrap these functions in Julia:
+
+\begin{lstlisting}
+function sumMyArgs(a::Flaot32, b::Float32)
+    return ccall((:sumMyArgs,myclib), Float64, (Float32,Float32), a, b)
+end
+\end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{C / Fortran: calling local code}
+simplemodule.f95
+
+\begin{lstlisting}
+module simpleModule
+
+contains
+function foo(x)
+  integer :: foo, x
+  foo = x * 2
+end function foo
+
+end module simplemodule
+\end{lstlisting}
+
+Which has to be compiled with
+
+\begin{lstlisting}
+gfortran simplemodule.f95 -o simplemodule.so -shared -fPIC
+\end{lstlisting}
+
+producing the simplemodule.so shared library file.
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{C / Fortran: calling local code}
+Then, in Julia,
+
+\begin{lstlisting}
+a = Int32[3]
+ccall((:__simplemodule_MOD_foo, "./simplemodule.so"), Int32, (Ptr{Int32},), a)
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{C++: It's messy...}
+
+There are a few packages that ``work'' for C++:
+\begin{itemize}
+\item Cxx.jl: Directly embed C++ code in Julia (like PyCall)
+\item CxxWrap: Wraps C++ code so you can export the functions and use them in base Julia
+\item CxxInterface: An updated version of Cxx.jl
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{PkgCompiler.jl}
+Easy way to compile your packages
+\end{frame}
+
+\begin{frame}
+\frametitle{Interacting with github}
+\begin{itemize}
+\item TagBot
+\item CI
+\end{itemize}
+\end{frame}
+
+\end{document}
