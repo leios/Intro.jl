@@ -104,12 +104,12 @@
 \begin{itemize}
 \item @time
 \item @benchmark
-\item @ode_lowered, @code_typed
+\item @code\_lowered, @code\_typed
 \end{itemize}
 \end{frame}
 
 \begin{frame}
-\frametitle{Makie.jl}
+\frametitle{Plotting.jl}
 
 \begin{itemize}
 \item line plots
@@ -119,6 +119,48 @@
 \item quiver plots
 \item subplots (gridlayout appears to be the makie version)
 \item updates/animations of figures
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Makie Specifics}
+
+Backends:
+\begin{enumerate}
+\item GLMakie -- OpenGL Makie
+\item WGLMakie -- WebGL Makie
+\item RPRMakie -- Experimental Raytracing Makie
+\item CairoMakie -- Cairo Makie
+\end{enumerate}
+
+example:
+\begin{lstlisting}
+using GLMakie
+GLMakie.activate!()
+Makie.scatter(positions[:,1], positions[:,2], positions[:,3])
+\end{lstlisting}
+
+Note that Makie and Plots conflict with each other!
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{subplots}
+
+\begin{enumerate}
+\item create a figure
+\item add an axis (Axis3 for 3D)
+\item scatter! to that axis
+\end{enumerate}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Quick notes...}
+Notes:
+\begin{itemize}
+\item specify Makie
+\item ``\!''
+\item No movement this time\!
 \end{itemize}
 \end{frame}
 

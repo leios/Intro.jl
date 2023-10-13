@@ -8,4 +8,7 @@ src/build/*
 *.snm
 *.toc
 *.xopp
+*.vrb
 *.log
+*.png
+*.mp4
