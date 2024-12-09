@@ -1,21 +1,14 @@
 using Documenter
 
 makedocs(
-    sitename="Julia101",
+    sitename="Intro.jl",
     authors="James Schloss (Leios) and contributors",
     pages = [
-        "General Information" => "index.md",
-        "Layering" => "layering.md",
-        "Time Interface" => "time_interface.md",
-        "Post Processing" => "postprocessing.md",
-        "Research Directions" => "research_directions.md",
-        "Examples" => Any[
-            "Rotating Square" => "examples/swirled_square.md",
-            "Simple Smears" => "examples/smear.md",
-        ],
+        "Welcome" => "src/index.md",
+        "About this Book" => "src/about.md",
     ],
 )
 
 deploydocs(;
-    repo="github.com/leios/Julia101.jl",
+    repo="github.com/leios/Intro.jl",
 )
