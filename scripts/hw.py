@@ -1,2 +1,3 @@
-print("Hello World")
+def check():
+    print("Hello World")
 

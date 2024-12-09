@@ -1,7 +1,4 @@
-using Plots
-using KernelAbstractions
-
-export run
+export run_nbody
 
 abstract type AbstractParticle end;
 
@@ -97,8 +94,8 @@ end
 
 end
 
-function run(n_particles::Int, n_steps::Int; dt = 0.01, dim = 2,
-             plot_steps = 10, output_images = false, ArrayType = Array)
+function run_nbody(n_particles::Int, n_steps::Int; dt = 0.01, dim = 2,
+                   plot_steps = 10, output_images = false, ArrayType = Array)
     particles = ArrayType(create_n_rand_particles(n_particles, dim))
     for i = 1:n_steps
         accelerations = ArrayType([Tuple(zeros(dim)) for i = 1:n_particles])
@@ -119,16 +116,3 @@ function run(n_particles::Int, n_steps::Int; dt = 0.01, dim = 2,
 
     return particles
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
