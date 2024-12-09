@@ -7,7 +7,6 @@ makedocs(
         "Welcome" => "index.md",
         "Reviewer Guidelines" => "content/reviewers.md",
         "About the Author" => "content/about_me.md",
-        "About this Book" => "content/about.md",
     ],
 )
 
