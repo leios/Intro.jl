@@ -1,2 +1,14 @@
 Manifest.toml
 src/build/*
+
+*.pdf
+*.aux
+*.nav
+*.out
+*.snm
+*.toc
+*.xopp
+*.vrb
+*.log
+*.png
+*.mp4

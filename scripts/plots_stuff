@@ -1,0 +1,29 @@
+#histogram
+# random from a normal dist:
+using Plots
+x = randn(1000)
+p(x) = 1/sqrt(2pi) * exp(-x^2/2)
+b_range = range(-5, 5, length=21)
+
+histogram(x, label="Experimental", bins=b_range, normalize=:pdf, color=:gray)
+plot!(p, label="Analytical", lw=3, color=:red)
+xlims!(-5, 5)
+ylims!(0, 0.4)
+title!("Normal distribution, 1000 samples")
+xlabel!("x")
+ylabel!("P(x)")
+
+#Makie
+using Makie, GLMakie
+GLMakie.activate!()
+Makie.scatter(positions[:,1], positions[:,2], positions[:,3])
+Makie.arrows(positions[:,1], positions[:,2], positions[:,3], v...)
+
+fig = Figure(; resolution=(1200, 400))
+ax1 = Axis3(fig[1, 1])
+ax2 = Axis3(fig[1, 2])
+
+Makie.scatter!(ax1, positions[:,1], positions[:,2], positions[:,3])
+Makie.arrows!(ax2, positions[:,1], positions[:,2], positions[:,3], positions[:,1
+], positions[:,2], positions[:,3])
+
