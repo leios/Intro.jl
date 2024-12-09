@@ -15,7 +15,7 @@ Possible funkiness includes:
 !!! note "Reviewer Notice"
     I will also have a few reviewer notices scattered throughout the book for specific issues that I want more input on.
 
-Please keep in mind that I am trying to make GPU computing as easy to understand as possible.
+Please keep in mind that I am trying to make Julia as easy to understand as possible.
 It's really hard to do this right.
 For example, I might over-explain a few concepts that otherwise might be seen as "trivial".
 I might also omit "important" jargon that I feel is unnecessary.

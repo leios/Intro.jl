@@ -8,6 +8,7 @@ makedocs(
         "Welcome" => "index.md",
         "Reviewer Guidelines" => "content/reviewers.md",
         "About the Author" => "content/about_me.md",
+        "Let's Be Honest About Julia" => "content/intro.md",
         #"Development Environments" => "ides.md",
         #"Packages" => "packages.md",
         #"General Syntax" => "syntax.md",
