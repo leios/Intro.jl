@@ -1,2 +1,3 @@
 Manifest.toml
-src/build/*
+build/*
+*.bak

@@ -1,21 +1,28 @@
+module Intro
 using Documenter
 
 makedocs(
-    sitename="Julia101",
-    authors="James Schloss (Leios) and contributors",
+    sitename="Intro.jl",
+    authors="James Schloss (Leios)",
     pages = [
-        "General Information" => "index.md",
-        "Layering" => "layering.md",
-        "Time Interface" => "time_interface.md",
-        "Post Processing" => "postprocessing.md",
-        "Research Directions" => "research_directions.md",
-        "Examples" => Any[
-            "Rotating Square" => "examples/swirled_square.md",
-            "Simple Smears" => "examples/smear.md",
-        ],
+        "Welcome" => "index.md",
+        "Reviewer Guidelines" => "content/reviewers.md",
+        "About the Author" => "content/about_me.md",
+        "Let's Be Honest About Julia" => "content/intro.md",
+        #"Development Environments" => "ides.md",
+        #"Packages" => "packages.md",
+        #"General Syntax" => "syntax.md",
+        #"General Development" => "development.md",
+        #"Plotting" => "plotting.md",
+        #"Parallelization" => "parallel.md",
+        #"Performance Notes" => "performance.md",
+        #"Benchmarking" => "benchmarks.md",
+        #"Debugging" => "debug.md",
+        #"Other Questions" => "questions.md",
     ],
 )
 
 deploydocs(;
-    repo="github.com/leios/Julia101.jl",
+    repo="github.com/leios/Intro.jl",
 )
+end
