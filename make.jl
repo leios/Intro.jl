@@ -2,10 +2,12 @@ using Documenter
 
 makedocs(
     sitename="Intro.jl",
-    authors="James Schloss (Leios) and contributors",
+    authors="James Schloss (Leios)",
     pages = [
-        "Welcome" => "src/index.md",
-        "About this Book" => "src/about.md",
+        "Welcome" => "index.md",
+        "Reviewer Guidelines" => "content/reviewers.md",
+        "About the Author" => "content/about_me.md",
+        "About this Book" => "content/about.md",
     ],
 )
 
