@@ -6,7 +6,7 @@ While there, I studied quantum systems by simulating them with my Graphics Proce
 During that time, my roommate (who will remain unnamed) became a core developer of the Julia language.
 So I tried it out and was (admittedly) a little lukewarm about the language.
 Throughout the next few years, the language evolved and Julia slowly became more and more important in my daily life.
-It started as a Python Replacement.
+It started as a Python replacement.
 Then a C replacement.
 Eventually, it even became a replacement for CUDA (the interface I was using to do almost all of my research).
 Since then, I have been working off and on in the Julia Lab at MIT (a very prominent research arm of the Julia programming language), where I have worked on various scientific computing projects such as climate and molecular simulations.
